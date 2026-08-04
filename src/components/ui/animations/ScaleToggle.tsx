@@ -1,0 +1,1 @@
+// ## ScaleToggle Component
