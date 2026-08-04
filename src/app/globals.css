@@ -1,1 +1,83 @@
 @import "tailwindcss";
+
+:root {
+  --bg-app: #f9fafb;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f3f4f6;
+  --bg-muted: #e5e7eb;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-subtle: #9ca3af;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #eef2ff;
+
+  --secondary: #334155;
+  --secondary-hover: #1e293b;
+
+  --border-color: #e5e7eb;
+  --border-subtle: #f3f4f6;
+
+  --rating-star: #f59e0b;
+  --favorite-heart: #ef4444;
+  --status-success: #10b981;
+  --status-error: #ef4444;
+}
+
+.dark {
+  --bg-app: #111827;
+  --bg-surface: #1f2937;
+  --bg-surface-hover: #374151;
+  --bg-muted: #374151;
+
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-subtle: #6b7280;
+
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #312e81;
+
+  --secondary: #94a3b8;
+  --secondary-hover: #cbd5e1;
+
+  --border-color: #374151;
+  --border-subtle: #1f2937;
+}
+
+@theme {
+  --color-app-bg: var(--bg-app);
+  --color-app-surface: var(--bg-surface);
+  --color-app-surface-hover: var(--bg-surface-hover);
+  --color-app-muted: var(--bg-muted);
+
+  --color-content-main: var(--text-main);
+  --color-content-muted: var(--text-muted);
+  --color-content-subtle: var(--text-subtle);
+
+  --color-brand-primary: var(--primary);
+  --color-brand-hover: var(--primary-hover);
+  --color-brand-light: var(--primary-light);
+
+  --color-brand-secondary: var(--secondary);
+  --color-brand-secondary-hover: var(--secondary-hover);
+
+  --color-divider: var(--border-color);
+  --color-divider-subtle: var(--border-subtle);
+
+  --color-status-star: var(--rating-star);
+  --color-status-heart: var(--favorite-heart);
+  --color-status-success: var(--status-success);
+  --color-status-error: var(--status-error);
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
