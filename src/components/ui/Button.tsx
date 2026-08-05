@@ -26,17 +26,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-medium rounded-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed";
 
     const variants = {
       primary:
-        "bg-brand-primary text-white hover:bg-brand-hover focus:ring-brand-primary",
+        "bg-brand-primary text-white hover:bg-brand-hover focus-visible:ring-brand-primary",
       secondary:
-        "bg-brand-secondary text-white hover:bg-brand-secondary-hover focus:ring-brand-secondary",
+        "bg-brand-secondary text-white hover:bg-brand-secondary-hover focus-visible:ring-brand-secondary",
       outline:
-        "border border-divider text-content-main hover:bg-app-surface-hover focus:ring-brand-primary",
+        "border border-divider text-content-main hover:bg-app-surface-hover focus-visible:ring-brand-primary",
       ghost:
-        "text-content-main hover:bg-app-surface-hover focus:ring-brand-primary",
+        "text-content-main hover:bg-app-surface-hover focus-visible:ring-brand-primary",
     };
 
     const sizes = {
