@@ -4,7 +4,7 @@ import { useProductStore } from "@/store/zustand/useProductStore";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 import ProductCard from "@/components/products/ProductCard";
-import ProductSkeleton from "@/components/products/ProductSkeleton";
+import ProductSkeleton from "@/components/skeleton/ProductSkeleton";
 import SearchBar from "@/components/common/SearchBar";
 import InfiniteScrollTrigger from "@/components/common/InfiniteScrollTrigger";
 import { FadeIn } from "@/components/ui/animations";
