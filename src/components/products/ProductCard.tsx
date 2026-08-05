@@ -29,6 +29,7 @@ export default function ProductCard({ product, priority }: ProductCardProps) {
             alt={product.title}
             fill
             priority={priority}
+            loading={priority ? "eager" : "lazy"}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             className="object-cover"
           />
