@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 import { themeScript } from "@/store/redux/themeSlice";
 import Navbar from "@/components/common/Navbar";
+import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn(
+        geistSans.variable,
+        geistMono.variable,
+        "h-full antialiased",
+      )}
       suppressHydrationWarning
     >
       <head>
@@ -39,8 +45,10 @@ export default function RootLayout({
       </head>
       <body className="flex h-full flex-col">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
+          <QueryProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
