@@ -17,8 +17,10 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, priority }: ProductCardProps) {
-  const { isFavorite, toggleFavorite } = useProductStore();
-  const favorite = isFavorite(product.id);
+  const favorite = useProductStore((state) =>
+    state.favorites.includes(product.id),
+  );
+  const toggleFavorite = useProductStore((state) => state.toggleFavorite);
 
   return (
     <AnimatedCard>

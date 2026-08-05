@@ -14,9 +14,10 @@ interface ProductDetailViewProps {
 
 export default function ProductDetailView({ product }: ProductDetailViewProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { isFavorite, toggleFavorite } = useProductStore();
-
-  const favorite = isFavorite(product.id);
+  const favorite = useProductStore((state) =>
+    state.favorites.includes(product.id),
+  );
+  const toggleFavorite = useProductStore((state) => state.toggleFavorite);
   const activeImage = selectedImage ?? product.thumbnail;
   const handleToggleFavorite = () => toggleFavorite(product.id);
 
