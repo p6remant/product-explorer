@@ -24,6 +24,7 @@
   --favorite-heart: #ef4444;
   --status-success: #10b981;
   --status-error: #ef4444;
+  --status-warning: #f59e0b;
 }
 
 .dark {
@@ -71,13 +72,11 @@
   --color-status-heart: var(--favorite-heart);
   --color-status-success: var(--status-success);
   --color-status-error: var(--status-error);
+  --color-status-warning: var(--status-warning);
 }
 
 body {
   background-color: var(--bg-app);
   color: var(--text-main);
   min-height: 100vh;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
 }
