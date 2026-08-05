@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchProductsApi } from "@/services/api";
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE, STALE_TIME } from "@/lib/constants";
 
 export const useInfiniteProducts = (searchQuery: string) => {
   const queryInfo = useInfiniteQuery({
@@ -17,7 +16,7 @@ export const useInfiniteProducts = (searchQuery: string) => {
       const nextSkip = lastPage.skip + lastPage.limit;
       return nextSkip < lastPage.total ? nextSkip : undefined;
     },
-    staleTime: 5 * 60 * 1000,
+    staleTime: STALE_TIME,
   });
 
   const products = queryInfo.data?.pages.flatMap((page) => page.products) ?? [];
