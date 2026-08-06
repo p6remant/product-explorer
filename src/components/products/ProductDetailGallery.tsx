@@ -73,6 +73,7 @@ export default function ProductDetailGallery({
                 src={img}
                 alt={`${product.title} ${idx + 1}`}
                 fill
+                sizes="80px"
                 className="object-cover"
               />
             </button>

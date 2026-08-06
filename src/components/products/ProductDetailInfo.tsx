@@ -4,12 +4,7 @@ import { Package, ShieldCheck, Star, Truck } from "lucide-react";
 import { Product } from "@/types/product";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/Card";
+import { Card, CardHeader } from "@/components/ui/Card";
 
 interface ProductDetailInfoProps {
   product: Product;
@@ -61,11 +56,11 @@ export default function ProductDetailInfo({
         </div>
       </Card>
 
-      <CardContent className="p-0">
-        <p className="text-content-muted mb-6 text-sm leading-relaxed">
+      <div className="mb-6">
+        <p className="text-content-muted text-sm leading-relaxed">
           {product.description}
         </p>
-      </CardContent>
+      </div>
 
       <Card className="mb-8 p-4">
         <div className="grid grid-cols-3 gap-3">
@@ -84,16 +79,16 @@ export default function ProductDetailInfo({
         </div>
       </Card>
 
-      <CardFooter className="border-divider border-t p-0 pt-4">
+      <div className="border-divider border-t pt-4">
         <Button
           variant="primary"
           size="lg"
-          className="flex-1"
+          className="w-full"
           onClick={onToggleFavorite}
         >
           {favorite ? "Remove from Favorites" : "Add to Favorites"}
         </Button>
-      </CardFooter>
+      </div>
     </div>
   );
 }
