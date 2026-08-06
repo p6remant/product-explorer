@@ -3,6 +3,8 @@ import { Header } from "@/components/ui/Header";
 import CategoryFilter from "@/components/filters/CategoryFilter";
 import ProductListContent from "@/components/products/ProductListContent";
 import { FadeIn } from "@/components/ui/animations";
+import { fetchProductsApi } from "@/services/api";
+import { PAGE_SIZE } from "@/lib/constants";
 import { Suspense } from "react";
 
 type SearchParamsObject = Record<string, string | string[] | undefined>;
@@ -12,14 +14,18 @@ type HomePageProps = {
 };
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const resolvedSearchParams =
-    searchParams instanceof Promise ? await searchParams : searchParams;
+  const resolvedParams = await searchParams;
+  const rawCategories = resolvedParams?.categories;
 
-  const categoriesParam = resolvedSearchParams.categories;
   const selectedCategories =
-    typeof categoriesParam === "string"
-      ? categoriesParam.split(",").filter(Boolean)
+    typeof rawCategories === "string"
+      ? rawCategories.split(",").filter(Boolean)
       : [];
+
+  const initialProducts =
+    selectedCategories.length === 0
+      ? await fetchProductsApi({ limit: PAGE_SIZE, skip: 0 })
+      : undefined;
 
   return (
     <FadeIn
@@ -43,7 +49,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             <CategoryFilter />
           </Suspense>
         }
-        content={<ProductListContent selectedCategories={selectedCategories} />}
+        content={
+          <ProductListContent
+            selectedCategories={selectedCategories}
+            initialProducts={initialProducts}
+          />
+        }
       />
     </FadeIn>
   );

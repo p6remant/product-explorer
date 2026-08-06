@@ -20,17 +20,16 @@ function paginateProducts(
 }
 
 function normalizeCategories(
-  data: ProductCategory[] | string[],
+  data: (ProductCategory | string)[],
 ): ProductCategory[] {
   return data.map((cat) => {
-    if (typeof cat === "string") {
-      return {
-        slug: cat,
-        name: cat.replace(/-/g, " ").toUpperCase(),
-        url: `${API_BASE_URL}/products/category/${cat}`,
-      };
-    }
-    return cat;
+    if (typeof cat !== "string") return cat;
+
+    return {
+      slug: cat,
+      name: cat.replace(/-/g, " ").toUpperCase(),
+      url: `${API_BASE_URL}/products/category/${cat}`,
+    };
   });
 }
 
@@ -47,21 +46,22 @@ export const fetchProductsApi = async (
   const { limit = 10, skip = 0, search = "", categories = [] } = params;
   const trimmedSearch = search.trim();
   const hasSearch = trimmedSearch.length > 0;
-  const hasCategories = categories.length > 0;
 
-  if (!hasSearch && !hasCategories) {
-    const { data } = await apiClient.get<ProductsResponse>("/products", {
-      params: { limit, skip },
-    });
-    return data;
-  }
+  if (!hasSearch) {
+    if (categories.length === 0) {
+      const { data } = await apiClient.get<ProductsResponse>("/products", {
+        params: { limit, skip },
+      });
+      return data;
+    }
 
-  if (!hasSearch && categories.length === 1) {
-    const { data } = await apiClient.get<ProductsResponse>(
-      `/products/category/${categories[0]}`,
-      { params: { limit, skip } },
-    );
-    return data;
+    if (categories.length === 1) {
+      const { data } = await apiClient.get<ProductsResponse>(
+        `/products/category/${categories[0]}`,
+        { params: { limit, skip } },
+      );
+      return data;
+    }
   }
 
   let products: Product[] = [];
@@ -71,31 +71,24 @@ export const fetchProductsApi = async (
       params: { q: trimmedSearch, limit: 0 },
     });
 
-    products = data.products;
-
-    if (hasCategories) {
-      const categorySet = new Set(categories);
-      products = products.filter((product) =>
-        categorySet.has(product.category),
-      );
-    }
+    products = categories.length
+      ? data.products.filter((item) => categories.includes(item.category))
+      : data.products;
   } else {
     const responses = await Promise.all(
-      categories.map((category) =>
-        apiClient.get<ProductsResponse>(`/products/category/${category}`, {
+      categories.map((cat) =>
+        apiClient.get<ProductsResponse>(`/products/category/${cat}`, {
           params: { limit: 0 },
         }),
       ),
     );
 
-    const productMap = new Map<number, Product>();
-    for (const res of responses) {
-      for (const item of res.data.products) {
-        productMap.set(item.id, item);
-      }
-    }
+    const uniqueProducts = new Map<number, Product>();
+    responses
+      .flatMap((res) => res.data.products)
+      .forEach((p) => uniqueProducts.set(p.id, p));
 
-    products = Array.from(productMap.values()).sort((a, b) => a.id - b.id);
+    products = Array.from(uniqueProducts.values()).sort((a, b) => a.id - b.id);
   }
 
   return paginateProducts(products, skip, limit);

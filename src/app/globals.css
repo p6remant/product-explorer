@@ -28,6 +28,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --bg-app: #111827;
   --bg-surface: #1f2937;
   --bg-surface-hover: #374151;
@@ -46,6 +47,30 @@
 
   --border-color: #374151;
   --border-subtle: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --bg-app: #111827;
+    --bg-surface: #1f2937;
+    --bg-surface-hover: #374151;
+    --bg-muted: #374151;
+
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --text-subtle: #6b7280;
+
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #312e81;
+
+    --secondary: #94a3b8;
+    --secondary-hover: #cbd5e1;
+
+    --border-color: #374151;
+    --border-subtle: #1f2937;
+  }
 }
 
 @theme {

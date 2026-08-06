@@ -10,10 +10,14 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { RefreshCw } from "lucide-react";
 
+import type { ProductsResponse } from "@/types/product";
+
 export default function ProductListContent({
   selectedCategories,
+  initialProducts,
 }: {
   selectedCategories: string[];
+  initialProducts?: ProductsResponse;
 }) {
   const searchQuery = useProductStore((state) => state.searchQuery);
   const debouncedSearch = useDebounce(searchQuery, 300);
@@ -26,7 +30,7 @@ export default function ProductListContent({
     error,
     hasNextPage,
     fetchNextPage,
-  } = useInfiniteProducts(debouncedSearch, selectedCategories);
+  } = useInfiniteProducts(debouncedSearch, selectedCategories, initialProducts);
 
   if (isError) {
     return (
@@ -60,7 +64,7 @@ export default function ProductListContent({
           <ProductCard
             key={product.id}
             product={product}
-            priority={index < 4}
+            priority={index === 0}
           />
         ))}
 
