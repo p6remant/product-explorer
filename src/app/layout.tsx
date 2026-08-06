@@ -45,7 +45,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <QueryProvider>
             <Navbar />
-            <main className="flex w-full flex-1 flex-col overflow-hidden">
+            <main className="flex min-h-0 w-full flex-1 flex-col overflow-hidden">
               {children}
             </main>
           </QueryProvider>
