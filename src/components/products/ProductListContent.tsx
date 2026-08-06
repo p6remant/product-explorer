@@ -6,6 +6,9 @@ import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 import ProductCard from "@/components/products/ProductCard";
 import ProductSkeleton from "@/components/skeleton/ProductSkeleton";
 import InfiniteScrollTrigger from "@/components/common/InfiniteScrollTrigger";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { RefreshCw } from "lucide-react";
 
 export default function ProductListContent({
   selectedCategories,
@@ -27,8 +30,25 @@ export default function ProductListContent({
 
   if (isError) {
     return (
-      <div className="bg-status-error/10 text-status-error mb-6 rounded-lg p-4 text-center">
-        {error instanceof Error ? error.message : "Failed to load products"}
+      <div className="flex justify-center py-16">
+        <Card className="max-w-md p-8 text-center">
+          <CardContent className="flex flex-col items-center gap-4 p-0">
+            <h2 className="text-status-error text-xl font-semibold">
+              Failed to load products
+            </h2>
+            <p className="text-content-muted text-sm">
+              {error instanceof Error ? error.message : "Something went wrong"}
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              leftIcon={<RefreshCw className="h-4 w-4" />}
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
