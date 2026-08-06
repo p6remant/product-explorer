@@ -62,7 +62,7 @@ export default function ProductDetailInfo({
         </p>
       </div>
 
-      <Card className="mb-8 p-4">
+      <Card className="mb-24 p-4 md:mb-8">
         <div className="grid grid-cols-3 gap-3">
           <div className="text-content-muted flex flex-col items-center text-center text-xs">
             <Truck className="text-brand-primary mb-1 h-5 w-5" />
@@ -79,7 +79,7 @@ export default function ProductDetailInfo({
         </div>
       </Card>
 
-      <div className="border-divider border-t pt-4">
+      <div className="border-divider hidden border-t pt-4 lg:block">
         <Button
           variant="primary"
           size="lg"

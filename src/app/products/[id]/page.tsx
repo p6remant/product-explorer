@@ -27,7 +27,7 @@ export default function ProductDetailPage({
   }
 
   return (
-    <div className="h-full w-full flex-1 overflow-y-auto">
+    <div className="min-h-0 w-full flex-1 overflow-y-auto">
       <ProductDetailView product={product} />
     </div>
   );
