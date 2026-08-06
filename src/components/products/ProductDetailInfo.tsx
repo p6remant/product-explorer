@@ -25,7 +25,7 @@ export default function ProductDetailInfo({
           {product.brand && <Badge variant="success">{product.brand}</Badge>}
         </div>
 
-        <h1 className="text-content-main text-3xl font-bold tracking-tight">
+        <h1 className="text-content-main text-xl font-bold tracking-tight md:text-3xl">
           {product.title}
         </h1>
       </CardHeader>
@@ -62,7 +62,7 @@ export default function ProductDetailInfo({
         </p>
       </div>
 
-      <Card className="mb-14 p-4 md:mb-8">
+      <Card className="mb-12 p-4 md:mb-8">
         <div className="grid grid-cols-3 gap-3">
           <div className="text-content-muted flex flex-col items-center text-center text-xs">
             <Truck className="text-brand-primary mb-1 h-5 w-5" />
