@@ -3,12 +3,38 @@
 import { type ReactNode, useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/store/redux/store";
-import { initTheme } from "@/store/redux/themeSlice";
+import {
+  applyThemeToDocument,
+  getResolvedThemeFromDocument,
+  setThemeCookie,
+} from "@/lib/theme";
+import { setTheme } from "@/store/redux/themeSlice";
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+function ThemeInitializer({ children }: { children: ReactNode }) {
   useEffect(() => {
-    store.dispatch(initTheme());
+    let isInitialMountSync = true;
+
+    const unsubscribeStore = store.subscribe(() => {
+      if (isInitialMountSync) return;
+
+      const activeThemeMode = store.getState().theme.mode;
+      setThemeCookie(activeThemeMode);
+      applyThemeToDocument(activeThemeMode);
+    });
+
+    store.dispatch(setTheme(getResolvedThemeFromDocument()));
+    isInitialMountSync = false;
+
+    return () => unsubscribeStore();
   }, []);
 
-  return <Provider store={store}>{children}</Provider>;
+  return <>{children}</>;
+}
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  return (
+    <Provider store={store}>
+      <ThemeInitializer>{children}</ThemeInitializer>
+    </Provider>
+  );
 }

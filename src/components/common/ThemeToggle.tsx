@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/redux/hooks";
 import { toggleTheme } from "@/store/redux/themeSlice";
+import { THEME } from "@/lib/theme";
 import { Moon, Sun } from "lucide-react";
 import { ScaleToggle } from "@/components/ui/animations/ScaleToggle";
 
@@ -25,7 +26,7 @@ export default function ThemeToggle() {
     >
       {mounted ? (
         <ScaleToggle toggleKey={themeMode}>
-          {themeMode === "dark" ? (
+          {themeMode === THEME.dark ? (
             <Sun className="text-status-warning h-5 w-5" />
           ) : (
             <Moon className="h-5 w-5" />
