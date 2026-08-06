@@ -1,24 +1,30 @@
-import axios from "axios";
+import { apiClient, API_BASE_URL } from "@/lib/apiClient";
 import {
   ProductsResponse,
   FetchProductsParams,
   Product,
+  ProductCategory,
 } from "@/types/product";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
-
-export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+export const fetchCategoriesApi = async (): Promise<ProductCategory[]> => {
+  const response = await apiClient.get<ProductCategory[] | string[]>(
+    "/products/categories",
+  );
+  if (typeof response.data[0] === "string") {
+    return (response.data as string[]).map((cat) => ({
+      slug: cat,
+      name: cat.replace("-", " ").toUpperCase(),
+      url: `${API_BASE_URL}/products/category/${cat}`,
+    }));
+  }
+  return response.data as ProductCategory[];
+};
 
 export const fetchProductsApi = async (
   params: FetchProductsParams,
 ): Promise<ProductsResponse> => {
-  const { limit = 10, skip = 0, search = "" } = params;
+  const { limit = 10, skip = 0, search = "", categories = [] } = params;
+
   const endpoint = search.trim() ? "/products/search" : "/products";
 
   const response = await apiClient.get<ProductsResponse>(endpoint, {
@@ -26,6 +32,7 @@ export const fetchProductsApi = async (
       limit,
       skip,
       q: search.trim() || undefined,
+      category: categories.length > 0 ? categories.join(",") : undefined,
     },
   });
 

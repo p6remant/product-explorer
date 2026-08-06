@@ -20,6 +20,12 @@ export interface Product {
   images: string[];
 }
 
+export interface ProductCategory {
+  slug: string;
+  name: string;
+  url: string;
+}
+
 export interface ProductsResponse {
   products: Product[];
   total: number;
@@ -31,4 +37,5 @@ export interface FetchProductsParams {
   limit?: number;
   skip?: number;
   search?: string;
+  categories?: string[];
 }

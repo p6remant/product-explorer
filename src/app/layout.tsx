@@ -43,11 +43,13 @@ export default function RootLayout({
           suppressHydrationWarning
         />
       </head>
-      <body className="flex h-full flex-col">
+      <body className="flex h-full flex-col overflow-hidden">
         <ThemeProvider>
           <QueryProvider>
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex w-full flex-1 flex-col overflow-hidden">
+              {children}
+            </main>
           </QueryProvider>
         </ThemeProvider>
       </body>
