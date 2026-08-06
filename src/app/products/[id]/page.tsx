@@ -5,7 +5,6 @@ import { useProduct } from "@/hooks/useProduct";
 import ProductDetailView from "@/components/products/ProductDetailView";
 import ProductDetailError from "@/components/products/ProductDetailError";
 import ProductDetailSkeleton from "@/components/skeleton/ProductDetailSkeleton";
-import { FadeIn } from "@/components/ui/animations";
 
 export default function ProductDetailPage({
   params,
@@ -28,8 +27,8 @@ export default function ProductDetailPage({
   }
 
   return (
-    <FadeIn direction="up" duration={0.3}>
+    <div className="h-full w-full flex-1 overflow-y-auto">
       <ProductDetailView product={product} />
-    </FadeIn>
+    </div>
   );
 }
